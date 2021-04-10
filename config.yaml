@@ -1,0 +1,34 @@
+baseURL: https://www.merbleueaviation.com/
+languageCode: en-us
+title: Mer Bleue Aviation
+enableRobotsTXT: true
+
+archetypeDir: _src/archetypes
+#assetDir: _src/assets
+contentDir: _src/md
+dataDir: _src/data
+layoutDir: _src/layouts
+publishDir: ./
+staticDir: _src/static
+themesDir: _src/themes
+
+
+GoogleAnalytics:
+
+params:
+    baiduTongJiId: e72e6b8c19da5861aac3287f158e202b
+    busuanziTongJiSite: busuanzi.ibruce.info
+    addressCountry: Canada
+    addressCity: Ottawa,K1W 0N4
+    addressOffice: 533 Pontheiu Circle
+    salesPhone: +1 613 769 6684
+    salesEmail: wei.tang@merbeleueaviation.com
+    
+    infoEmail: 56649783@qq.com
+    githubUsername: mycad
+    #weibo_username: 
+    #zhihu_username: 
+    #linkedIn_username: 
+    #dribbble_username:
+    #twitter_username: 
+    #facebook_username: 

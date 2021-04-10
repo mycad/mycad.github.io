@@ -1,0 +1,14 @@
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+{{- if .IsHome }}
+<meta name="keywords" content="Aviation,Aircraft,Engine,Training,Supervisor,Consultant,Maintenance Soft," />
+<meta name="description" content="Mer Bleue Aviation provide technical services, sales and IT solution in aviation bussiness." />
+<title>{{- .Site.Title }}</title>
+{{- else }}
+<meta name="description" content="{{ .Description }}">
+<title>{{- upper .Title }}</title>
+{{- end }}
+
+{{- partial "bootStrapTemplateCss.html" . }}
+
+{{- partial "tongJi.html" . }}
