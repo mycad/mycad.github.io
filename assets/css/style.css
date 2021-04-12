@@ -188,12 +188,13 @@ section {
 }
 
 .header .logo span {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 700;
   letter-spacing: 1px;
   color: #012970;
   font-family: "Nunito", sans-serif;
   margin-top: 3px;
+  white-space: pre;
 }
 
 /*--------------------------------------------------------------
@@ -2453,12 +2454,13 @@ section {
 }
 
 .footer .footer-top .footer-info .logo span {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 700;
   letter-spacing: 1px;
   color: #012970;
   font-family: "Nunito", sans-serif;
   margin-top: 3px;
+  white-space: pre;
 }
 
 .footer .footer-top .footer-info p {
