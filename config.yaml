@@ -4,12 +4,12 @@ title: Mer Bleue Aviation
 enableRobotsTXT: true
 
 archetypeDir: _src/archetypes
-#assetDir: _src/assets
+assetDir: _src/assets
 contentDir: _src/md
 dataDir: _src/data
 layoutDir: _src/layouts
 publishDir: ./
-staticDir: _src/static
+staticDir: ./
 themesDir: _src/themes
 
 
