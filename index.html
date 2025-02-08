@@ -1,631 +1,379 @@
+<!--
+* @Author                : Robert Huang<56649783@qq.com>
+* @CreatedDate           : 2024-12-09 17:36:00
+* @LastEditors           : Robert Huang<56649783@qq.com>
+* @LastEditDate          : 2025-01-27 22:52:24
+* @FilePath              : MerBleueSite/index2.html
+* @CopyRight             : MerBleueAviation
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta name="generator" content="Hugo 0.82.0" /><meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta name="keywords" content="Aviation,Aircraft,Engine,Training,Supervisor,Consultant,Maintenance Software," />
-<meta name="description" content="Mer Bleue Aviation provide technical services, sales and IT solution in aviation bussiness." />
-<title>Mer Bleue Aviation</title>
-<link href="https://ae01.alicdn.com/kf/U9f1d6fc21c46406797ec8724d58a7f75I.jpg" rel="icon">
-<link href="https://ae01.alicdn.com/kf/U9f1d6fc21c46406797ec8724d58a7f75I.jpg" rel="apple-touch-icon">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  <link href="./img/logo.ico" rel="icon">
+  <link href="./img/logo.ico" rel="apple-touch-icon">
 
-<link href="https://fonts.loli.net/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="./css/materialicons.css" rel="stylesheet" type="text/css">
+  <link href="./css/quasar.prod.css" rel="stylesheet" type="text/css">
+  <link href="./css/style.css" rel="stylesheet" type="text/css">
 
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" rel="stylesheet" crossorigin="anonymous">
-<link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-<link href="https://cdn.bootcdn.net/ajax/libs/aos/3.0.0-beta.6/aos.css" rel="stylesheet">
-<link href="https://cdn.bootcdn.net/ajax/libs/Swiper/6.5.6/swiper-bundle.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/glightbox@3.0.8/dist/css/glightbox.min.css" rel="stylesheet">
-
-
-<link href="assets/css/style.css" rel="stylesheet">
-
-
-    <script>
-    
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?e72e6b8c19da5861aac3287f158e202b";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
-    
-    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </head>
 
 <body>
+  <script src="./js/vue@3.5.13/vue.global.prod.js"></script>
+  <script src="./js/vue-i18n@11.0.1/vue-i18n.global.prod.js"></script>
+  <script src="./js/vue-i18n@11.0.1/en-US.js"></script>
+  <script src="./js/vue-i18n@11.0.1/zh-CN.js"></script>
+  <script src="./js/quasar-umd@2.15.1/quasar.umd.prod.js"></script>
+  <script src="./js/lottie-player.js"></script>
 
-  
-  <header id="header" class="header fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+  <div id="q-app">
+    <q-layout view="lHh lpr lFf" container style="height: 100vh" @scroll="scroll">
+      <!-- header -->
+      <q-header :style="headerBgColor">
+        <q-toolbar class="justify-between" style="height:44px; padding-left: 40px;">
+          <q-btn dense flat round size="sm" class="q-mr-xs" @click="goTo('#home')">
+            <q-avatar dense>
+              <q-img src="./img/logo.png"></q-img>
+            </q-avatar>
+          </q-btn>
+          <q-toolbar-title>
+            <span class="main-text-color">{{ $t('COMPANY_NAME') }}</span>
+          </q-toolbar-title>
+          <q-tabs v-model="menu" inline-label class="main-text-color">
+            <q-tab name="about" no-caps :label="$t('MENU_ABOUT')" @click="goTo('#about')"></q-tab>
+            <q-tab name="services" no-caps :label="$t('MENU_SERVICES')" @click="goTo('#services')"></q-tab>
+            <q-tab name="works" no-caps :label="$t('MENU_WORKS')" @click="goTo('#works')"></q-tab>
+            <q-tab name="team" no-caps :label="$t('MENU_TEAM')" @click="goTo('#team')"></q-tab>
+            <q-tab name="contact" no-caps :label="$t('MENU_CONTACT')" @click="goTo('#contact')"></q-tab>
+          </q-tabs>
+          <q-select dense borderless emit-value map-options options-dense v-model="language" :options="langOptions"
+            option-label="label" option-value="value" @update:model-value="changeLanguage">
+            <template #prepend>
+              <q-icon :name="'img:./img/'+ language + '.svg'"></q-icon>
+            </template>
+            <template #selected-item="{ opt }">
+              <span class="main-text-color">{{ opt.label }}</span>
+            </template>
+          </q-select>
+        </q-toolbar>
+      </q-header>
 
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="https://ae01.alicdn.com/kf/Ud4fe74912bf0476898e5c13f6d6df1300.jpg" alt="">
-        <span>Mer Bleue Aviation</span>
-      </a>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="#portfolio">Bussiness</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav>
-
-    </div>
-  </header>
-  
-  
-  <section id="hero">
-    <div class="hero-container">
-      <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
-
-        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
-
-        <div class="carousel-inner" role="listbox">
-          
-          <div class="carousel-item active" style="background-image: url('https://ae01.alicdn.com/kf/U8cfe849c1fdb49819b22404390fb0a00m.jpg')">
-            <div class="carousel-container">
-              <div class="carousel-content container">
-                  <h1 data-aos="fade-up">Welcome to Mer Bleue Aviation</h1>
-                  <h2 data-aos="fade-up" data-aos-delay="400"></h2>
-                  <div data-aos="fade-up" data-aos-delay="600">
-                    <div class="text-center text-lg-start">
-                      <a href="#about" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                        <span>Get Started</span>
-                        <i class="bi bi-arrow-right"></i>
-                      </a>
-                    </div>
-                  </div>
+      <div class="row q-pa-none q-gutter-sm justify-center" style="margin-top: 44px;">
+        <!-- carousel -->
+        <div class="col-12" id="home">
+          <q-carousel animated infinite autoplay navigation arrows v-model="carousel_slide"
+            transition-prev="slide-right" transition-next="slide-left" @mouseenter="autoplay = false"
+            @mouseleave="autoplay = true">
+            <q-carousel-slide name="1" img-src="./img/carousel_1.png">
+              <div class="absolute-bottom custom-caption">
+                <div class="text-h2 text-white">{{ $t('WELCOME_TO_COMPANY', {company:$t('COMPANY_NAME')} ) }}</div>
               </div>
-            </div>
-          </div>
-
-          
-          <div class="carousel-item" style="background-image: url('https://ae01.alicdn.com/kf/U731adc67854a42e98831201971d5332en.jpg')">
-            <div class="carousel-container">
-              <div class="carousel-content container">
+            </q-carousel-slide>
+            <q-carousel-slide name="2" img-src="./img/carousel_2.png">
+              <div class="absolute-bottom custom-caption">
+                <div class="text-h2 text-white">{{ $t('WELCOME_TO_COMPANY', {company:$t('COMPANY_NAME')} ) }}</div>
               </div>
-            </div>
-          </div>
-
-
+            </q-carousel-slide>
+          </q-carousel>
         </div>
 
-        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-        </a>
-        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-
-
-  <main id="main">
-    
-    <section id="about" class="about">
-
-      <div class="container" data-aos="fade-up">
-        <div class="row gx-0">
-
-          <div class="col-lg-12 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-            <div class="content">
-              <h1>About us</h1>
-              <h2>Mer Bleue Aviation is leading service provider that provides market leading solutions across aviation aircraft and engine asset management, engineering consultancy, and Aviation IT consultancy services. We serve a diverse, global client base. Our international office network spans in both North America and Asia Pacific.</h2>
-            </div>
-          </div>
-
+        <!-- About -->
+        <div class="col-10 q-pa-lg" id="about">
+          <q-card flat style="background-color: transparent;">
+            <q-card-section>
+              <div class="text-h4">{{ $t('ABOUT_TITLE') }}</div>
+            </q-card-section>
+            <q-card-section>
+              <div class="text-h5 main-text-color">{{ $t('ABOUT_CONTENT', {company:$t('COMPANY_NAME')} ) }}</div>
+            </q-card-section>
+          </q-card>
         </div>
-      </div>
 
-    </section>
-
-    
-    <section id="services" class="values">
-
-      <div class="container" data-aos="fade-up">
-
-        <header class="section-header">
-          <p>Our Services</p>
-        </header>
-
-        <div class="row">
-
-          <div class="col-lg-4">
-            <div class="box" data-aos="fade-up" data-aos-delay="200">
-              <img src="https://ae01.alicdn.com/kf/U538267020ac34b77a1df14e17dcd3e99o.jpg" class="img-fluid" alt="">
-              <h3>Aviation IT</h3>
-              <p>Aviation System Development</p>
-              <p>Software Support</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="box" data-aos="fade-up" data-aos-delay="400">
-              <img src="https://ae01.alicdn.com/kf/Ube1a32ec433f44a1955efaed2658b476e.jpg" class="img-fluid" alt="">
-              <h3>Technical Consultant</h3>
-              <p>Airworthiness Maintenance Management</p>
-              <p>Technical Support</p>
-              <p>Consultant Support</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="box" data-aos="fade-up" data-aos-delay="600">
-              <img src="https://ae01.alicdn.com/kf/Ua2c23b9931c14715b2967e934330e8deE.jpg" class="img-fluid" alt="">
-              <h3>Material</h3>
-              <p>Material Support</p>
-              <p>Trainning Device Consultant</p>
-            </div>
+        <!-- Services -->
+        <div class="col-10 text-center text-h4 main-text-color q-pa-md" id="services" style="padding-top: 50px;">
+          {{ $t('SERVICE_TITLE') }}
+        </div>
+        <div class="col-10 row q-col-gutter-lg justify-center">
+          <div v-for="(item,index) in services" :key="index"
+            class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 flex justify-center">
+            <q-intersection transition="slide-up" transition-duration="2000" once>
+              <img :id="uid()" :src="'./img/services/' + item.img + '.png'" @mouseover="zoomIn"
+                @mouseleave="zoomOut"></img>
+              <q-card flat style="background-color: transparent;">
+                <q-card-section>
+                  <div class="text-h6 main-text-color">{{ $t(item.title) }}</div>
+                  <div class="text-subtitle2" v-for="subTitle in item.subTitles">{{ $t(subTitle.title) }}</div>
+                </q-card-section>
+              </q-card>
+            </q-intersection>
           </div>
 
         </div>
 
-      </div>
-
-    </section>
-
-    
-    <section id="counts" class="counts">
-      <div class="container" data-aos="fade-up">
-        <header class="section-header">
-          <p>Counts</p>
-        </header>
-        <div class="row gy-4">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-info-circle" style="color: #00ffff;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="25" data-purecounter-duration="1" class="purecounter"></span><span>+</span>
-                <p>Redelivery Consultant</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-kanban" style="color: #ee6c20;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span><span>+</span>
-                <p>PCF Projects</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-journal-check" style="color: #006400;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1" class="purecounter"></span><span>+</span>
-                <p>Aircraft Annual Inspection</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-emoji-smile"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="86" data-purecounter-duration="1" class="purecounter"></span><span>+</span>
-                <p>Happy resources</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-bullseye" style="color: #A020F0;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span><span>+</span>
-                <p>Trainning Engine(CFM56-3)</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-people" style="color: #bb0852;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1" class="purecounter"></span><span>+</span>
-                <p>Hard Workers</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-headset" style="color: #15be56;"></i>
-              <div>
-                <span data-purecounter-start="0" data-purecounter-end="1128" data-purecounter-duration="1" class="purecounter"></span><span>+</span>
-                <p>Hours Of Support</p>
-              </div>
-            </div>
-          </div>
-          
+        <!-- Works -->
+        <div class="col-10 text-center text-h4 main-text-color q-pa-md" id="works" style="padding-top: 50px;">
+          {{ $t('WORKS_TITLE') }}
         </div>
-
-      </div>
-    </section>
-
-    
-    <section id="portfolio" class="portfolio">
-
-      <div class="container" data-aos="fade-up">
-
-        <header class="section-header">
-          <p>Our historic works</p>
-        </header>
-
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-consulant">Consulant</li>
-              <li data-filter=".filter-material">Material</li>
-              <li data-filter=".filter-it">IT</li>
-            </ul>
+        <div class="col-10 row justify-center q-pa-none">
+          <div v-for="(item,index) in works" :key="index" class="image-container">
+            <q-intersection transition="slide-up" transition-duration="2000" once>
+              <img :id="uid()" :src="'./img/works/service-' + item.index + '.jpg'" style="height: 300px;"
+                @mouseover="zoomIn" @mouseleave="zoomOut"></img>
+              <div class="hover-text">{{ item.title }}</div>
+            </q-intersection>
           </div>
         </div>
 
-        <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-consulant">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/Uc659ca186f20493182c5bf28852d84e98.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PCF Project</h4>
-                <p></p>
-                <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
+        <!-- Resources -->
+        <div class="col-10 text-center text-h4 main-text-color q-pa-md" id="works" style="padding-top: 50px;">
+          {{ $t('RESOURCE_TITLE') }}
+        </div>
+        <div class="col-10 row justify-center q-pa-none">
+          <div v-for="n in 27" :key="index" class="q-pa-md">
+              <img :id="uid()" :src="'./img/resources/resource-' + n + '.png'" style="height: 20px;"
+                @mouseover="zoomIn" @mouseleave="zoomOut"></img>
           </div>
-          
-          <div class="col-lg-4 col-md-6 portfolio-item filter-consulant">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/U7054d0517f92462881e04385a5c3443at.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>PCF Project</h4>
-                <p></p>
-                 <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 portfolio-item filter-consulant">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/Ud2fe7ccbc590428b8d0a08219e374a7eg.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>BSI on site</h4>
-                <p></p>
-                 <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 portfolio-item filter-consulant">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/Uf0689c81cb8d4c5a9920774363423324C.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>BSI on site</h4>
-                <p></p>
-                 <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 portfolio-item filter-material">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/Ufa3773c6ee8d4356a5b9b229d5217cb5A.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>CFM56-3 Trainning Engine</h4>
-                <p></p>
-                 <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-                    
-          <div class="col-lg-4 col-md-6 portfolio-item filter-material">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/U05278f9e05214ce78f56e23af3f50e87E.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>CFM56-3 Trainning Engine</h4>
-                <p></p>
-                 <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-                    
-          <div class="col-lg-4 col-md-6 portfolio-item filter-material">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/Ubeb0169322944341be4387e81ae03c8bt.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>CFM56-3 Trainning Engine</h4>
-                <p></p>
-                 <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 portfolio-item filter-material">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/Ub52f7082978140a9a1e8c57bfa59e7faq.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>CFM56-3 Trainning Engine</h4>
-                <p></p>
-                 <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 portfolio-item filter-it">
-            <div class="portfolio-wrap">
-              <img src="https://ae01.alicdn.com/kf/U8740626acc034e8ead3b999e74cb5f4cl.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>CAAC CAD Analysis</h4>
-                <p></p>
-                 <div class="portfolio-links">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          
         </div>
 
-      </div>
-
-    </section>
-
-    
-    <section id="resources" class="resources">
-
-      <div class="container" data-aos="fade-up">
-
-        <header class="section-header">
-          <p>Our Resources</p>
-        </header>
-
-        <div class="resources-slider swiper-container">
-          <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Ud8f5354a80d14cd1b2311b6c7f5da8888.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U6ed3653fc3cd45cba6b3e00409da0c24q.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Uf5dfc99795cd4916a69cb280c4459220g.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U7a8a14209c6f49e1a8096fdc52670072G.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U484f74795acc4ef6a7f2fd439643a0126.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U729c81a2dfba41ebb387dbeec83a062ab.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Ubc5079cc90fc4f379a9eeab5dba1be699.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Ud2238c2ddda543f1b8e339bf06509805o.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Ua9f7151ce0b8409eb9a281119aaaa5e0O.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U617c221793d84551b5d34bcf1f10f1e0s.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Uf96d9f239d304d29b4d99a8fa6814ae3L.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U39368a2b799c4ae1ac423638e44d82edM.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U3714a685d0a64c33ab95b6e7f7736f2fM.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Uddbe302160be404ba29155aab1b37468Q.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U0733f7a6b72f4525b7cbc9d234e14d6ea.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Ud86664cc27cd4991bf01d9e93a90b0937.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U02095bb310a54548b9c8ee1a9025fc10m.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U78147646a71342a9bad0040a84fdcc2a8.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Uabcf9db88be04bd8b29b13f13676addai.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U41bb4efac4d74df3a1dde45a6a63b330f.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Ue94f7dc360494f4b829cfcb2451ac480A.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Uc527862e9369464e9cfcab1ff138ccb4u.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/Ub569836356b44cde841b867a222d2738z.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U28eb5a4cbbd14cefb2bd5130d5b032act.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U4aeefb8298a847c0bec7287e12d5d0abK.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="https://ae01.alicdn.com/kf/U67efc2d148274ba3b7292eb6bfeffa692.jpg" class="img-fluid" alt=""></div>
-
-          </div>
-          <div class="swiper-pagination"></div>
+        <!-- Team -->
+        <div class="col-10 text-center text-h4 main-text-color q-pa-md" id="team" style="padding-top: 50px;">
+          {{ $t('TEAM_TITLE') }}
         </div>
-      </div>
+        <q-list class="col-10 flex justify-center">
+          <q-item>
+            <q-intersection transition="slide-up" transition-duration="2000" once>
+              <div class="main-text-color text-h5">{{ $t('TEAM_DESC_1') }}</div>
+            </q-intersection>
+          </q-item>
+          <q-item>
+            <q-intersection transition="slide-up" transition-duration="4000" once>
+              <div class="main-text-color text-h5">{{ $t('TEAM_DESC_2') }}</div>
+            </q-intersection>
+          </q-item>
+          <q-item>
+            <q-intersection transition="slide-up" transition-duration="6000" once>
+              <div class="main-text-color text-h5">{{ $t('TEAM_DESC_3') }}</div>
+            </q-intersection>
+          </q-item>
+          <q-item>
+            <q-intersection transition="slide-up" transition-duration="8000" once>
+              <div class="main-text-color text-h5">{{ $t('TEAM_DESC_4') }}</div>
+            </q-intersection>
+          </q-item>
+        </q-list>
 
-    </section>
-
-
-    
-    <section id="team" class="team">
-
-      <div class="container" data-aos="fade-up">
-
-        <header class="section-header">
-          <p>Our team</p>
-           <lottie-player
-              autoplay
-              loop
-              mode="normal"
-              src="assets/img/teams-2.json"
-            > 
-            </lottie-player>
-          <h2 data-aos="fade-up" data-aos-delay="400">15+ years work experience</h2>
-          <h2 data-aos="fade-up" data-aos-delay="800">Experienced in aviation consultant</h2>
-          <h2 data-aos="fade-up" data-aos-delay="1200">Experienced in aviation system development</h2>
-          <h2 data-aos="fade-up" data-aos-delay="1600">Good communication</h2>
-        </header>
-
-
-      </div>
-
-    </section>
-    
-    
-    <section id="contact" class="contact">
-
-      <div class="container" data-aos="fade-up">
-
-        <header class="section-header">
-          <p>Contact Us</p>
-        </header>
-
-        <div class="row gy-4">
-          <div class="col-lg-6 d-flex" data-aos="fade-up">
-            <div class="info-box">
-              <i class="bi bi-geo-alt"></i>
-              <h3>Our Address</h3>
-              <p>533 Pontheiu Circle,Ottawa,K1W 0N4,Canada</p>
-            </div>
+        <!-- Contact -->
+        <div class="col-10 text-center text-h4 main-text-color q-pa-md" id="contact" style="padding-top: 50px;">
+          {{ $t('CONTACT_TITLE') }}
+        </div>
+        <div class="col-10 row">
+          <div class="col-12 col-sm-4 q-pa-md text-center">
+            <q-icon name="location_on" size="40px" color="indigo"></q-icon>
+            <q-card flat style="background-color: transparent;">
+              <q-card-section>
+                <div class="main-text-color">{{ $t('CONTACT_LOCATION') }}</div>
+              </q-card-section>
+              <q-card-section>
+                <p>533 Pontheiu Circle, Ottawa, K1W 0N4, Canada</p>
+              </q-card-section>
+            </q-card>
           </div>
-          <div class="col-lg-3 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="info-box">
-              <i class="bi bi-envelope"></i>
-              <h3>Email Us</h3>
-              <p>wei.tang@merbeleueaviation.com</p>
-            </div>
+          <div class="col-12 col-sm-4 q-pa-md text-center">
+            <q-icon name="mail" size="40px" color="green"></q-icon>
+            <q-card flat style="background-color: transparent;">
+              <q-card-section>
+                <div class="main-text-color">{{ $t('CONTACT_EMAIL') }}</div>
+              </q-card-section>
+              <q-card-section>
+                <p>wei.tang@merbeleueaviation.com</p>
+              </q-card-section>
+            </q-card>
           </div>
-
-          <div class="col-lg-3 d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="info-box ">
-              <i class="bi bi-telephone"></i>
-              <h3>Call Us</h3>
-              <p>&#43;1 613 769 6684</p>
-            </div>
+          <div class="col-12 col-sm-4 q-pa-md text-center">
+            <q-icon name="call" size="40px" color="deep-purple"></q-icon>
+            <q-card flat style="background-color: transparent;">
+              <q-card-section>
+                <div class="main-text-color">{{ $t('CONTACT_PHONE') }}</div>
+              </q-card-section>
+              <q-card-section>
+                <p>&#43;1 613 769 6684</p>
+              </q-card-section>
+            </q-card>
           </div>
-
-          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="300">
-            <form action="mailto:wei.tang@merbeleueaviation.com" method="post" role="form" class="email-form">
-              <div class="row">
-                <div class="col-lg-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-lg-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit" class="submit-buttom">Send Message</button></div>
-            </form>
-          </div>
-
         </div>
 
-      </div>
-
-    </section>
-
-  </main>  
-  <footer id="footer" class="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-5 col-md-12 footer-info">
-            <a href="index.html" class="logo d-flex align-items-center">
-              <img src="https://ae01.alicdn.com/kf/Ud4fe74912bf0476898e5c13f6d6df1300.jpg" alt="">
-              <span>Mer Bleue Aviation</span>
+        <!-- Footer -->
+        <div class="col-12" style="background-color: white;height: 2px;"></div>
+        <div class="col-10">
+          <q-toolbar>
+            <a href="index.html">
+              <img src="./img/logo.png" style="height: 60px;">
             </a>
-            <h4>Think what you think!</h4>
-            <div class="social-links mt-3">
-              <a href="#"><i class="bi bi-chat-dots-fill"></i></a>
-              <a href="#"><i class="bi bi-twitter"></i></a>
-              <a href="#"><i class="bi bi-facebook"></i></a>
-              <a href="#"><i class="bi bi-instagram bx bxl-instagram"></i></a>
-              <a href="#"><i class="bi bi-linkedin bx bxl-linkedin"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://www.faa.gov">FAA</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://www.easa.europa.eu/home">EASA</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://amos.caac.gov.cn/#/home">CAAC</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://www.boing.com">Boeing</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://www.airbus.com">Airbus</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://www.comac.com">Comac</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-2 col-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Airworthiness Maintenance Management</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Technical Support</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Consultant Support</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Mateial Support</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Training Device Consultant</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Aviation System Development</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Software Support</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-            <h4>Contact Us</h4>
-            <p>533 Pontheiu Circle <br>Ottawa,K1W 0N4 <br>Canada <br>
-              <strong>Phone: </strong>&#43;1 613 769 6684<br>
-              <strong>Email: </strong>wei.tang@merbeleueaviation.com<br>
-            </p>
-
-          </div>
-
+            <span class="text-h5 main-text-color">Mer Bleue Aviation
+              <div class="text-h6">Think what you think!</div>
+            </span>
+            <q-toolbar-title>
+              <span class="q-pa-md q-gutter-sm text-center">
+                {{ $t('USEFUL_LINKS') }}
+                <a href="https://www.faa.gov"><q-btn flat label="FAA"></q-btn></a>
+                <a href="https://www.easa.europa.eu/home"><q-btn flat label="EASA"></q-btn></a>
+                <a href="https://amos.caac.gov.cn/#/home"><q-btn flat label="CAAC"></q-btn></a>
+                <a href="https://www.boing.com"><q-btn flat label="Boeing"></q-btn></a>
+                <a href="https://www.airbus.com"><q-btn flat label="Airbus"></q-btn></a>
+                <a href="https://www.comac.com"><q-btn flat label="Comac"></q-btn></a>
+              </span>
+            </q-toolbar-title>
+            <img src="./img/footer-bg.png" style="height: 200px;">
+          </q-toolbar>
+          <div class="main-text-color text-center">© Copyright <strong><span>{{ $t('COMPANY_NAME') }}</span></strong>.
+            All Rights Reserved</div>
         </div>
       </div>
-    </div>
+    </q-layout>
+  </div>
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Mer Bleue Aviation</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        
-        
-        
-        
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer>
+  <script>
+    const i18n = VueI18n.createI18n({
+      legacy: false,
+      missingWarn: true,
+      fallbackWarn: true,
+      fallbackLocale: 'enUS',
+      messages: {
+        'enUS': enUS,
+        'zhCN': zhCN
+      }
+    })
+    const { t } = i18n.global
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/aos/3.0.0-beta.6/aos.js"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/Swiper/6.5.6/swiper-bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounter.js/dist/purecounter_vanilla.js"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
-  <script src="assets/js/glightbox.min.js"></script>
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/lottie-player.js"></script>
-  
-  <script src="assets/js/main.js"></script>
+    Quasar.useMeta({
+      title: t('COMPANY_NAME'),
+      meta: {
+        keywords: { name: 'keywords', content: t('META_KEYWORDS') },
+        description: { name: 'description', content: t('META_DESCRIPTION', { company: t('COMPANY_NAME') }) },
+      }
+    })
 
+    const app = Vue.createApp({
+      setup() {
+        // header background color
+        const headerBgColor = Vue.ref("background-color: transparent;")
+
+        // Languages -->>
+        const language = Vue.ref(Quasar.Cookies.get('lang') || 'enUS')
+        i18n.global.locale.value = language.value
+        //Quasar.lang.set(Quasar.lang[language.value]);
+
+        // services
+        const services = Vue.ref([
+          {
+            title: 'SERVICE_1_TITLE', img: 'technical_consultation',
+            subTitles: [
+              { title: 'SERVICE_1_SUBTITLE_1' },
+              { title: 'SERVICE_1_SUBTITLE_2' },
+              { title: 'SERVICE_1_SUBTITLE_3' },
+            ]
+          },
+          {
+            title: 'SERVICE_2_TITLE', img: 'material',
+            subTitles: [
+              { title: 'SERVICE_2_SUBTITLE_1' },
+              { title: 'SERVICE_2_SUBTITLE_2' }
+            ]
+          },
+          {
+            title: 'SERVICE_3_TITLE', img: 'aviation_system',
+            subTitles: [
+              { title: 'SERVICE_3_SUBTITLE_1' },
+              { title: 'SERVICE_3_SUBTITLE_2' }
+            ]
+          },
+        ])
+
+        // services counts
+        const serviceCounts = Vue.ref([
+          { text: 'SERVICE_COUNT_TITLE_1', icon: 'hive', color: 'indigo', targetVal: 86 },
+          { text: 'SERVICE_COUNT_TITLE_2', icon: 'school', color: 'deep-purple', targetVal: 5 },
+          { text: 'SERVICE_COUNT_TITLE_3', icon: 'published_with_changes', color: 'purple', targetVal: 5 },
+          { text: 'SERVICE_COUNT_TITLE_4', icon: 'handyman', color: 'pink', targetVal: 10 },
+          { text: 'SERVICE_COUNT_TITLE_5', icon: 'engineering', color: 'teal', targetVal: 25 },
+          { text: 'SERVICE_COUNT_TITLE_6', icon: 'groups', color: 'orange', targetVal: 10 },
+          { text: 'SERVICE_COUNT_TITLE_7', icon: 'interpreter_mode', color: 'green', targetVal: 1128 },
+        ])
+        function autoIncrementNumber(item) {
+          item.currentVal = 0
+          // const timer = setInterval(() => {
+          //   item.currentVal += 1; // 每次增加1
+          //   if (item.currentVal >= item.targetVal) {
+          //     clearInterval(timer);
+          //   }
+          // }, 100); // 每隔100毫秒增长一次
+        }
+
+        // works
+        const works = Vue.ref([
+          { index: 1, title: 'PCF Project' },
+          { index: 2, title: 'PCF Project' },
+          { index: 3, title: 'BSI on site' },
+          { index: 4, title: 'BSI on site' },
+          { index: 5, title: 'CFM56-3 Training Engine' },
+          { index: 6, title: 'CFM56-3 Training Engine' },
+          { index: 7, title: 'CFM56-3 Training Engine' },
+          { index: 8, title: 'CFM56-3 Training Engine' },
+          { index: 9, title: 'CAAC CAD Analysis' }
+        ])
+
+        Vue.onMounted(() => {
+          // services counts
+          for (const element of serviceCounts.value) {
+            autoIncrementNumber(element);
+          }
+        })
+
+        return {
+          uid: Quasar.uid,
+          headerBgColor: headerBgColor,
+          scroll: (details) => {
+            headerBgColor.value = details.position > 50 ? 'background-color: white;' : 'background-color: transparent;'
+          },
+          menu: Vue.ref('about'),
+          carousel_slide: Vue.ref("1"),
+          autoplay: Vue.ref(true),
+          goTo: (url) => {
+            window.location.href = url
+          },
+          language,
+          langOptions: Vue.ref([
+            { label: '中文', value: 'zhCN' },
+            { label: 'English', value: 'enUS' }
+          ]),
+          changeLanguage: (lang) => {
+            i18n.global.locale.value = lang
+            //console.log(lang)
+            //Quasar.lang.set(Quasar.lang[lang]);
+            Quasar.Cookies.set('lang', lang, { path: '/', expires: 30 });
+          },
+          services: services,
+          serviceCounts: serviceCounts,
+          zoomIn: (evt) => {
+            document.getElementById(evt.target.id).classList.add('zoom')
+          },
+          zoomOut: (evt) => {
+            document.getElementById(evt.target.id).classList.remove('zoom')
+          },
+          works: works
+        }
+      }
+    })
+
+    app.use(Quasar)
+    app.use(i18n)
+    app.mount('#q-app')
+  </script>
 </body>
 
 </html>
